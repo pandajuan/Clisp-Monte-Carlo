@@ -1,0 +1,90 @@
+            ~/fasl/README-mc File   JPN    (16/03/2004)
+	    
+
+var-param-mc.lisp: Definiciones de variables y estructuras. No hay ninguna 
+                   función definida en este archivo.
+	  
+aleat.lisp: Algunas variables propias del generador de números aleatorios y las
+            funciones del generador. No usa funciones externas.
+	    Define:                       Usa:
+	            - siembra                  - nil
+		    - aleat
+				    
+conexion-mc.lisp: Define las variables de ambiente e inicia rodada en nodos
+                  remotos.
+            Define:                       Usa:
+	            - ambiente                 - var-param-mc
+		    - inicio-siguiente	       - aleat
+
+definiciones-mc.lisp: Da valores a la mayoria de las variables definidas en
+                      var-param-mc.lisp y las funciones de seteo de tiempo
+            Define:                       Usa:
+                    - nbeta                    - var-param-mc
+		    - set-tiempo               
+		    - on-swt
+		    - off-swt
+		    - definiciones
+		    
+io-mc.lisp: Funciones de entrada salida
+            Define:                       Usa:
+                    - lectura-de-variables*    - var-param-mc
+	            - entrada                  - conexion-mc
+		    - pr-info (interna)        - definiciones-mc
+		    - informacion	       
+		    - recover                  
+		    - impresion-final
+		    - indices (interna)
+		    - mezcla
+		    - cambio
+		    - datos-temporales
+
+redux-mc.lisp: Define las funciones de simplificacion.
+            Define:                       Usa:
+                    - reduccion                - var-param-mc
+	            - red                      - fprotected-mc
+		    - redux                    - aleat
+
+sistema0-mc.lisp: Funciones de creacion del primer sistema
+            Define:                       Usa:
+                    - zero                     - var-param-mc
+	            - lista0 (interna)         - definiciones-mc
+		                               - aleat
+					       - redux-mc
+
+flistas-mc.lisp: Define funciones de manipulacion de listas o calculo de
+                 propiedades de listas
+            Define:                       Usa:
+	            - c-d-atm                  - var-param
+		    - elemento
+		    - prf-arbol
+		    - nth-s-arbol
+		    - jer
+		    - jerarquia
+		    - my-subst
+
+fprotected-mc.lisp: Definicion de funciones protegidas y macros funcionales.
+	    Define:                       Usa:
+		    - sgn                       - var-param
+		    - rignum			- aleat
+		    - %
+		    - Plog
+		    - Pexp
+		    - Psqr
+		    - dfloat
+		    - dv
+		    - fl
+		    - fr
+		    - der0 (interna)
+		    - kl (interna)
+		    - f0, f1, f2, f3
+
+monte_carlo.lisp: Operaciones de Metropolis y Parallel Tempering.
+            Define:                       Usa:
+                    - n0 (interna)             - var-param-mc
+	            - estado-nuevo (interna)   - fprotected-mc
+		    - reemplazo (interna)      - definiciones-mc
+		    - pre-calentamiento        - flistas-mc
+		    - monte-carlo              - io-mc
+		    - valores-medios           - sistema0-mc
+		                               - redux-mc
+

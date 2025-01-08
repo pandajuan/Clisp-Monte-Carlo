@@ -1,0 +1,16 @@
+(x)
+((fl . 1) (fr . 1)  (dv . 1) (+ . 2) (- . 2) (* . 2) (% . 2) (Psqr . 1) (f . 1))
+8
+15
+0.00001d0
+100000.d0
+t
+
+;;; Las variables a las cuales se les asignan los valores escritos arriba
+;;; son las siguientes
+;;; *listat*  => Lista de terminales
+;;; *listaf*  => Lista de funciones (lista punteada)
+;;; *profn*   => Maxima profundidad de un arbol de la generacion n
+;;; *Chico*   => Menor numero considerado (float)
+;;; *Grande*  => Mayor numero considerado (float)
+;;; *verbose* => Si t imprime mensajes

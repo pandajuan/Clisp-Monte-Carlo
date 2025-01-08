@@ -1,0 +1,36 @@
+ 10
+ 1000
+ 30.0
+ 0.1
+ 10.0e-6
+ 50
+ 0
+ 28
+ (DO* ((J 0 (INCF J))
+       (LVAL NIL)
+       (FUNC (COMPILE NIL (LIST 'LAMBDA '(XL XR FX) (MY-SUBST (EVAL LISTA))))))
+      ((= J (LENGTH *LISTA-FITNESS*)) LVAL)
+   (DO* ((FG (NTH J *LISTA-FITNESS*))
+         (FI0 (FUNCALL (SYMBOL-FUNCTION FG) *XI*))
+         (FF0 (FUNCALL (SYMBOL-FUNCTION FG) *XF*))
+         (I 0 (INCF I))
+         (XN (FUNCALL FUNC *XI* *XF* FG) (FUNCALL FUNC XI XF FG))
+         (FN (IF (AND (>= XN *XI*) (<= XN *XF*))
+                 (FUNCALL (SYMBOL-FUNCTION FG) XN)
+                 NIL)
+             (IF (AND (>= XN *XI*) (<= XN *XF*))
+                 (FUNCALL (SYMBOL-FUNCTION FG) XN)
+                 NIL))
+         (XI (IF (AND FN (= (SIGNUM FN) (SIGNUM FI0))) XN *XI*)
+             (IF (AND FN (= (SIGNUM FN) (SIGNUM FI))) XN XI))
+         (XF (IF (AND FN (/= (SIGNUM FN) (SIGNUM FI0))) XN *XF*)
+             (IF (AND FN (/= (SIGNUM FN) (SIGNUM FI))) XN XF))
+         (FI FI0 (IF (= XI XN) FN FI))
+         (FF FF0 (IF (= XF XN) FN FF))
+         (FE (MIN (ABS FI) (ABS FF)) (MIN (ABS FI) (ABS FF))))
+        ((OR (= I 100) (> 10.0e-5 FE) (NOT FN))
+         (PUSH (IF (NOT FN) 100 I) LVAL))))
+ (F0 F1 F2 F3)
+ 1.0
+ 3.1415927
+ T
